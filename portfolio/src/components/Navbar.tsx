@@ -1,86 +1,52 @@
-import { useEffect, useState } from "react";
-
-const navLinks = [
-  { href: "#hero", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#resume", label: "Resume" },
-  { href: "#contact", label: "Contact" },
-];
-
 function Navbar() {
-  const [active, setActive] = useState("hero");
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      const sections = navLinks
-        .map((l) => document.getElementById(l.href.slice(1)))
-        .filter(Boolean);
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          if (rect.top <= 200) {
-            setActive(section.id);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const handleNavClick = () => {
-    const btn = document.getElementById("navbarToggler");
-    const collapse = document.getElementById("navMenu");
-    if (btn && collapse?.classList.contains("show")) {
-      btn.click();
-    }
-  };
-
   return (
-    <nav
-      className={`navbar navbar-expand-lg navbar-dark fixed-top ${
-        scrolled ? "navbar-scrolled" : ""
-      }`}
-    >
-      <div className="container">
-        <a className="navbar-brand fw-bold" href="#hero">
-          {"<Rahul />"}
+    <nav style={{
+      position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+      height: "64px", display: "flex", alignItems: "center",
+      borderBottom: "1px solid var(--border-light)",
+      background: "rgba(250, 247, 242, 0.88)",
+      backdropFilter: "blur(12px)",
+    }}>
+      <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+        <a href="#top" style={{
+          fontFamily: "'Playfair Display', serif",
+          fontSize: "1.15rem", fontWeight: 700,
+          color: "var(--navy)",
+          letterSpacing: "-0.02em",
+          display: "flex", alignItems: "center", gap: "6px",
+        }}>
+          Rahul R
+          <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "var(--terracotta)", marginTop: "2px" }} />
         </a>
-        <button
-          id="navbarToggler"
-          className="navbar-toggler border-0"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navMenu"
-          aria-controls="navMenu"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navMenu">
-          <ul className="navbar-nav ms-auto">
-            {navLinks.map((link) => (
-              <li className="nav-item" key={link.href}>
-                <a
-                  className={`nav-link ${active === link.href.slice(1) ? "active" : ""}`}
-                  href={link.href}
-                  onClick={handleNavClick}
-                >
-                  {link.label}
-                </a>
-              </li>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <div className="nav-links">
+            {[
+              { href: "#work", label: "Work" },
+              { href: "#exp", label: "Experience" },
+              { href: "#connect", label: "Contact" },
+            ].map((n) => (
+              <a key={n.href} href={n.href} style={{
+                fontSize: "0.85rem", fontWeight: 500,
+                color: "var(--slate)", padding: "6px 12px",
+                borderRadius: "6px", transition: "color 0.15s, background 0.15s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "var(--navy)";
+                e.currentTarget.style.background = "var(--cream-alt)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "var(--slate)";
+                e.currentTarget.style.background = "transparent";
+              }}
+              >
+                {n.label}
+              </a>
             ))}
-          </ul>
+          </div>
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "7px 18px", fontSize: "0.85rem" }}
+            onClick={(e) => { e.currentTarget.href = "/resume.pdf?t=" + Date.now(); }}>
+            Resume
+          </a>
         </div>
       </div>
     </nav>

@@ -1,75 +1,70 @@
-import { useScrollReveal, useAnimatedCounter } from "../hooks/useScrollReveal";
-
-interface StatItem {
-  end: number;
-  suffix: string;
-  label: string;
-  prefix?: string;
-}
-
-const stats: StatItem[] = [
-  { end: 2, suffix: "", label: "Industry Internships" },
-  { end: 5, suffix: "+", label: "Full-Stack Projects" },
-  { end: 98, suffix: "%", label: "Lighthouse Score", prefix: "Top" },
-  { end: 1, suffix: ".7%", label: "National Ranking", prefix: "Top" },
+const skillGroups = [
+  { label: "Languages", items: ["Python", "JavaScript (ES6+)", "SQL", "Bash/Shell", "C"] },
+  { label: "Frontend", items: ["React.js", "Tailwind CSS", "HTML5", "CSS3"] },
+  { label: "Backend", items: ["Django", "Flask", "Node.js", "Express.js", "REST APIs", "JWT Auth", "Gunicorn"] },
+  { label: "Database", items: ["MongoDB", "MySQL", "Firebase Realtime DB", "Firebase Auth"] },
+  { label: "DevOps & Servers", items: ["Git", "GitHub", "Linux/Ubuntu", "Nginx", "Vercel", "Netlify"] },
+  { label: "Data & Automation", items: ["NumPy", "Pandas", "ETL Workflows"] },
 ];
 
-function StatCounter({ item, revealed }: { item: StatItem; revealed: boolean }) {
-  const count = useAnimatedCounter(item.end, 1800, revealed);
-  return (
-    <div className="stat-box text-center p-3">
-      <span className="stat-number">
-        {item.prefix && (
-          <span className="stat-prefix">{item.prefix} </span>
-        )}
-        {count}{item.suffix}
-      </span>
-      <span className="stat-label d-block">{item.label}</span>
-    </div>
-  );
-}
-
 function About() {
-  const [ref, revealed] = useScrollReveal<HTMLDivElement>();
-
   return (
-    <section id="about" className="section-padding">
+    <section id="about" className="section" style={{ borderTop: "1px solid var(--border-light)" }}>
       <div className="container">
-        <div className="text-center mb-5">
-          <span className="section-badge">About Me</span>
-          <h2 className="section-title mt-2">
-            Crafting Code, Building Futures
-          </h2>
-        </div>
-        <div
-          ref={ref}
-          className={`row justify-content-center scroll-reveal ${revealed ? "revealed" : ""}`}
-        >
-          <div className="col-lg-8">
-            <div className="about-card p-4 p-md-5">
-              <p className="lead mb-4">
-                I'm a <strong>Software Engineer</strong> and <strong>Full Stack Developer</strong>{" "}
-                pursuing my B.E. in Computer Science &amp; Engineering at{" "}
-                <strong>Vins Christian College of Engineering</strong>.
-                With <strong>two industry internships</strong> at NIM Technologies and IBM,
-                I've shipped production-grade Python automation, Django REST APIs, and
-                full-stack React SPAs deployed to cloud infrastructure.
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "clamp(32px, 8vw, 64px)", alignItems: "start" }}>
+
+          {/* Left — bio */}
+          <div>
+            <span className="eyebrow">About</span>
+            <h2 style={{ marginBottom: "24px" }}>
+              I started shipping code my first year of college.
+            </h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <p>
+                I'm a final-year Computer Science student at Vins Christian College of Engineering.
+                React, Django, Firebase, MongoDB — I picked them up because projects needed them.
+                Two industry internships later, I've deployed real code that real people use.
               </p>
-              <p className="mb-4">
-                Ranked <strong>Top 500 nationally (Top 1.7%)</strong> among 30,000+ participants
-                in India's Full Stack Development program, and{" "}
-                <strong>Top 500 in the TN Skill State Hackathon</strong>. I combine
-                engineering rigor with product thinking — every project ships with
-                CI/CD, performance budgets, and accessibility defaults.
+              <p>
+                At NIM Technologies I built ETL pipelines and Django APIs deployed on Linux with
+                Nginx and Gunicorn. At IBM I configured Cognos BI dashboards and automated
+                enterprise report generation. Both internships taught me that production is
+                different from localhost — sometimes painfully so.
               </p>
-              <div className="row mt-4 g-3">
-                {stats.map((s, i) => (
-                  <div className="col-6 col-sm-3" key={i}>
-                    <StatCounter item={s} revealed={revealed} />
-                  </div>
-                ))}
-              </div>
+              <p>
+                I rank in the top 500 nationally in two competitive programs: the Wadhwani Full
+                Stack National Program (30,000+ participants) and the Naan Mudhalvan State
+                Hackathon (25,000+ participants).
+              </p>
             </div>
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "28px" }}>
+              <a href="https://github.com/ragulravi2405-coder" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ fontSize: "0.85rem", padding: "8px 18px" }}>
+                GitHub
+              </a>
+              <a href="https://linkedin.com/in/rahul-r-6536022a0" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ fontSize: "0.85rem", padding: "8px 18px" }}>
+                LinkedIn
+              </a>
+            </div>
+          </div>
+
+          {/* Right */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            {skillGroups.map((g) => (
+              <div key={g.label}>
+                <p style={{
+                  fontSize: "0.7rem", fontWeight: 600,
+                  textTransform: "uppercase", letterSpacing: "0.1em",
+                  color: "var(--muted)", marginBottom: "8px",
+                }}>
+                  {g.label}
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
+                  {g.items.map((item) => (
+                    <span key={item} className="badge">{item}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
