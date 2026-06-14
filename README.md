@@ -2,7 +2,7 @@
 
 > Personal portfolio website built with React 19, TypeScript, and Tailwind CSS v4. Warm light theme with cream background, navy headings, and terracotta accent. Designed to avoid AI-generated patterns — plain prose, specific stories, real screenshots.
 
-**Developer:** Rahul R  
+**Developer:** Bhawana Bisht
 **Status:** Final-year CS student, available for full-time roles from mid-2026
 
 ---
