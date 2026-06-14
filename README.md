@@ -1,8 +1,9 @@
-# Portfolio Website
+# Portfolio — Rahul R
 
-> A modern, high-performance single-page application built with React.js, TypeScript, and Bootstrap 5. Designed to showcase technical skills, projects, and professional experience — optimized for recruiter conversion and deployed via Netlify.
+> Personal portfolio website built with React 19, TypeScript, and Tailwind CSS v4. Warm light theme with cream background, navy headings, and terracotta accent. Designed to avoid AI-generated patterns — plain prose, specific stories, real screenshots.
 
-**Developer:** Bhawana Bisht
+**Developer:** Rahul R  
+**Status:** Final-year CS student, available for full-time roles from mid-2026
 
 ---
 
@@ -12,68 +13,59 @@
 |-------|-----------|
 | **Framework** | React 19 + TypeScript |
 | **Build Tool** | Vite 8 |
-| **Styling** | Bootstrap 5, Custom CSS (Design System) |
-| **Animations** | IntersectionObserver, CSS keyframes |
-| **Form Handling** | Netlify Forms (serverless) |
-| **PDF Generation** | Node.js script (build step) |
-| **Deployment** | Netlify (SPA with `_redirects`) |
+| **Styling** | Tailwind CSS v4 (`@tailwindcss/vite` plugin), custom CSS variables |
+| **Fonts** | Playfair Display (serif headings), Inter (sans body), JetBrains Mono (monospace) |
+| **Theme** | Warm light — cream `#faf7f2`, navy `#1e293b`, terracotta `#b4442f` |
+| **PDF Generation** | Node.js script (build step via `scripts/generate-resume.js`) |
+| **Deployment** | Static host (Netlify / Vercel) |
 
 ---
 
 ## Features
 
-- **Typewriter Hero** — dynamic role cycling with animated gradient glow orbs
-- **Animated Stat Counters** — smooth ease-out cubic count-up on scroll
-- **Progress Bar Skills** — 16 skills across 4 categories with staggered entrance
-- **Experience Timeline** — internship history with visual timeline markers
-- **Project Gallery** — gradient card headers, colored tech tags, shine hover effect
-- **Certifications & Achievements** — split-view layout with percentile badges
-- **Resume Download** — auto-generated PDF during build
-- **Contact Form** — serverless Netlify Forms with honeypot spam protection + loading state
-- **Scroll-to-Top** — floating gradient button after 400px scroll
-- **Scroll-Reveal** — fade-in/slide-up animations driven by IntersectionObserver
-- **Active Nav Tracking** — highlights current section based on scroll position
-- **Mobile-Responsive** — full responsiveness from 320px to 1920px; hamburger menu auto-closes on link click
-- **Dark Theme** — custom design system with glassmorphism navbar, gradient text, and glow effects
-
----
-
-## Lighthouse Scores
-
-| Category | Score |
-|----------|-------|
-| **Performance** | 98 |
-| **Accessibility** | 97 |
-| **Best Practices** | 100 |
-| **SEO** | 100 |
+- **Left-aligned hero** with hand-drawn SVG underline accent and production stats
+- **Featured project case study** (Global Chat Application) with architecture breakdown and production incident story
+- **Project gallery** (E-Commerce, Internship Portal, Data Pipelines) with real screenshot images and `fix:` callout tags
+- **Production mistakes** section — plain narrative prose, one expanded story (502/Nginx debug sequence), no lesson boxes
+- **Experience timeline** with visual dot markers and education/achievement cards
+- **About + Skills** — neutral monospace badges grouped by category, no colored pill tags
+- **Resume download** — auto-generated PDF during build, cache-busted on every click
+- **Fully responsive** — `clamp()` spacing, collapsible nav links on ≤480px, fluid grids
+- **Warm light theme** — consistent cream/terracotta/navy palette, serif headings, monospace code
 
 ---
 
 ## Project Structure
 
 ```
-src/
-├── components/
-│   ├── Navbar.tsx         # Glassmorphism navbar with active tracking
-│   ├── Hero.tsx           # Typewriter intro + code block visual
-│   ├── About.tsx          # Bio + animated stat counters
-│   ├── Skills.tsx         # Animated progress bars
-│   ├── Experience.tsx     # Timeline layout
-│   ├── Projects.tsx       # Gradient card gallery
-│   ├── Certifications.tsx # Certs + achievements
-│   ├── Resume.tsx         # Download CTA
-│   ├── Contact.tsx        # Netlify form with spinner
-│   ├── ScrollToTop.tsx    # Back-to-top button
-│   ├── Typewriter.tsx     # Role cycling component
-│   └── Footer.tsx         # Social links
-├── hooks/
-│   └── useScrollReveal.ts # IntersectionObserver + animated counter
-├── App.tsx                # Root layout
-├── App.css                # Full design system (~700 lines)
-└── main.tsx               # Entry point
+portfolio/
+├── public/
+│   ├── screenshots/          # Real screenshots of running apps
+│   ├── resume.pdf            # Auto-generated on build
+│   └── _redirects            # SPA redirect rules
+├── scripts/
+│   └── generate-resume.js    # Build-step PDF generator
+├── src/
+│   ├── components/
+│   │   ├── Navbar.tsx        # Fixed nav with serif logo + collapsible links
+│   │   ├── Hero.tsx          # Headline, hand-drawn SVG underline, stats row
+│   │   ├── CaseStudy.tsx     # Global Chat — why, architecture, $6 incident
+│   │   ├── MoreProjects.tsx  # E-Commerce, Portal, Pipelines — text + screenshots
+│   │   ├── Mistakes.tsx      # Single expanded 502/Nginx production story
+│   │   ├── Experience.tsx    # Timeline (NIM, IBM) + education cards
+│   │   ├── About.tsx         # Bio + skill groups (no colored tags)
+│   │   └── Connect.tsx       # Contact links + location/availability
+│   ├── App.tsx               # Root layout + footer
+│   ├── index.css             # CSS variables, globals, responsive breakpoints
+│   └── main.tsx              # Entry point
+├── index.html                # Google Fonts link
+├── vite.config.ts            # Vite + Tailwind v4 plugin
+├── tsconfig.json
+└── package.json
 ```
 
 ---
+
 
 ## Getting Started
 
@@ -91,17 +83,26 @@ npm run build
 npm run preview
 ```
 
+
+## Customization
+
+- **Theme colors** — edit CSS variables in `:root` in `src/index.css`
+- **Personal info** — update text in component files under `src/components/`
+- **Projects** — edit the `projects` array in `src/components/MoreProjects.tsx`
+- **Resume PDF** — edit `scripts/generate-resume.js` and rebuild
+- **Social links** — update URLs in `Hero.tsx`, `About.tsx`, `Connect.tsx`, and `Navbar.tsx`
+- **Screenshots** — place PNGs in `public/screenshots/`
+
 ---
 
 ## Deployment
 
-### Netlify (recommended)
+### Netlify
 
-1. Connect your GitHub repository to Netlify
-2. Set build command: `npm run build`
-3. Set publish directory: `dist`
-4. Deploy — the contact form activates automatically via `data-netlify="true"`
-5. Add custom domain if desired
+1. Connect GitHub repository to Netlify
+2. Build command: `npm run build`
+3. Publish directory: `dist`
+4. The `public/_redirects` file handles SPA routing automatically
 
 ### Vercel
 
@@ -112,21 +113,6 @@ npm run preview
 
 ---
 
-## Customization
-
-- **Theme colors** — edit CSS custom properties in `:root` in `App.css`
-- **Personal info** — update text in component files under `src/components/`
-- **Projects** — edit the `projects` array in `src/components/Projects.tsx`
-- **Skills** — update `skillCategories` in `src/components/Skills.tsx`
-- **Resume PDF** — edit `scripts/generate-resume.js` and rebuild
-- **Social links** — update URLs in `Hero.tsx` and `Footer.tsx`
-
----
-
 ## License
 
 MIT — free to use, modify, and distribute.
-
----
-
-**Built by [Bhawana Bisht](https://github.com/Bhawana0218)**
