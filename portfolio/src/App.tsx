@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import Profile from "./components/Profile";
 import CaseStudy from "./components/CaseStudy";
 import MoreProjects from "./components/MoreProjects";
 import Mistakes from "./components/Mistakes";
@@ -13,6 +14,7 @@ function App() {
       <Navbar />
       <main>
         <Hero />
+        <Profile />
         <CaseStudy />
         <MoreProjects />
         <Mistakes />
